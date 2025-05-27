@@ -1,1 +1,5 @@
-./main
+# Abaikan file main.exe (Windows)
+main.exe
+
+# Abaikan file main (Linux)
+main
