@@ -1,0 +1,54 @@
+void addMovie(int bioskopIndex, string movieTitle, string genre[], string sutradara, string ratingUsia,  int day, int size, int duration) {
+	Movie *newMovie = new Movie();
+	newMovie->movieTitle = movieTitle;
+	newMovie->sutradara = sutradara;
+	newMovie->ratingUsia = ratingUsia;
+	newMovie->duration = duration;
+	newMovie->headTime = NULL;
+	newMovie->tailTime = NULL;
+	newMovie->next = NULL;
+	newMovie->prev = NULL;
+
+	for(int i = 0; i < size; i ++) {
+		newMovie->genre[i] = genre[i];
+	}
+	
+	if(bioskop[bioskopIndex].schedule[day].headMovie == NULL) {
+		bioskop[bioskopIndex].schedule[day].headMovie = newMovie;
+		bioskop[bioskopIndex].schedule[day].tailMovie = bioskop[bioskopIndex].schedule[day].headMovie;
+	}
+	else {
+		newMovie->prev = bioskop[bioskopIndex].schedule[day].tailMovie;
+		bioskop[bioskopIndex].schedule[day].tailMovie->next = newMovie;
+		bioskop[bioskopIndex].schedule[day].tailMovie = newMovie;
+	}
+}
+
+void addTime(int bioskopIndex, string movieTitle, int day, int totalShow, int startTime) {
+
+	Movie *lastMovie = bioskop[bioskopIndex].schedule[day].headMovie;
+	while (lastMovie->movieTitle != movieTitle) {
+		lastMovie = lastMovie->next;
+	}
+	
+	Time *start = NULL;
+	Time *end = NULL;
+	int currentTime = startTime;
+
+	for (int i = 0; i < totalShow; i++) {
+		Time *newTime = new Time();
+		newTime->next = NULL;
+		newTime->showTimes = currentTime;
+
+		if(start == NULL) {
+			start = newTime;
+			end = start;
+		} else {
+			end->next = newTime;
+			end = newTime;
+		}
+		currentTime += lastMovie->duration;
+	}
+	
+	lastMovie->headTime = start;
+}
