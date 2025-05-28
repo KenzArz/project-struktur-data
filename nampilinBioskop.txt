@@ -2,5 +2,5 @@ void nampilinBioskop() {
 	cout << "Daftar Bioskop: \n";
     cout << "1. FESTIVE WALK CGV\n";
     cout << "2. TECHONMART CGV\n";
-    cout << "3. MAL KARAWANG XXI\n";
+    cout << "3. Tj XXI\n";
 }
