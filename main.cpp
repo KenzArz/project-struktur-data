@@ -68,6 +68,24 @@ int currentUserIndex;
 #include "searchUsername.txt"
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
+void tampilkanDaftarBioskop() {
+    cout << "\n=== Daftar Bioskop ===" << endl;
+    for (int i = 0; i < 3; i++) {
+        cout << i + 1 << ". " << bioskop[i].bioskop << endl;
+    }
+
+    int pilihan;
+    cout << "\nPilih bioskop (1-3): ";
+    cin >> pilihan;
+
+    while (pilihan < 1 || pilihan > 3) {
+        cout << "Pilihan tidak valid. Silakan pilih lagi (1-3): ";
+        cin >> pilihan;
+    }
+
+    currentBioskopIndex = pilihan - 1;
+    cout << "Bioskop yang dipilih: " << bioskop[currentBioskopIndex].bioskop << endl;
+}
 
 
 void head() {
