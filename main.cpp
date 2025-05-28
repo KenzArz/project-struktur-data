@@ -52,6 +52,7 @@ int currentDayIndex;
 int currentUserIndex;
 
 //	TODO:
+//= 0. nyari nama user
 //= 1. Menampilkan daftar bioskop
 //= 2. Menampilkan list hari
 //= 3. Menampilkan list film berdasarkan hari yang sudah dipilih user, 
@@ -64,8 +65,10 @@ int currentUserIndex;
 
 //! Taro file di sini
 #include "addMovie.txt"
+#include "searchUsername.txt"
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
+
 
 void head() {
 	cin.ignore().get();
@@ -75,13 +78,19 @@ void head() {
 }
 
 int main() {
-	head();
-	cout << "\t\t1. Bioskop";
-	cout << "\t\t2. Cari movie berdasarkan genre" << endl;
-	cout << "\t\t3. Cek tiketku" << endl;
-	cout << "\t\t4. Log Out" << endl;
-	cout << "\t\t==============================================\n";
-	cout << "Masukkan pilihan: " << endl;
+	string username;
+	cout << "Masukkan nama user: ";
+	getline(cin >> ws, username);
+	userName(username);
+
+	cout << "Nama user: " << user[currentUserIndex].username << endl;
+	// head();
+	// cout << "\t\t1. Bioskop";
+	// cout << "\t\t2. Cari movie berdasarkan genre" << endl;
+	// cout << "\t\t3. Cek tiketku" << endl;
+	// cout << "\t\t4. Log Out" << endl;
+	// cout << "\t\t==============================================\n";
+	// cout << "Masukkan pilihan: " << endl;
 
 	return 0;
 }

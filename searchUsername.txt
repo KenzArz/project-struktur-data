@@ -1,0 +1,8 @@
+void userName(string username) {
+	for (int i = 0; i < 6; i++) {
+		if(user[i].username == username) {
+			currentUserIndex = i;
+			break;
+		}
+	}
+}
