@@ -68,6 +68,17 @@ int currentUserIndex;
 #include "searchUsername.txt"
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
+cout << "Percobaan function" << endl;
+void userName(string username) {
+	for (int i = 0; i < 6; i++) {
+		if (user[i].username == username) {
+			currentUserIndex = i;
+			return;
+		}
+	}
+	cout << "User tidak ditemukan!" << endl;
+	exit(1);
+}
 
 
 void head() {
