@@ -1,0 +1,15 @@
+void tampilkanHari() {
+    cout << "List Hari:" << endl;
+    for (int i = 0; i < 7; i++) {
+        cout << i + 1 << ". " << bioskop[currentBioskopIndex].schedule[i].day << endl;
+    }
+    int pilihan;
+    cout << "Masukkan nomor hari (1-7): ";
+    while (!(cin >> pilihan) || pilihan < 1 || pilihan > 7) {
+        cout << "Input tidak valid. Silakan masukkan angka antara 1 dan 7: ";
+        cin.clear();
+        cin.ignore(10000, '\n');
+    }
+    currentDayIndex = pilihan - 1;
+    cout << "Hari yang dipilih: " << bioskop[currentBioskopIndex].schedule[currentDayIndex].day << endl;
+}
