@@ -71,6 +71,7 @@ int currentUserIndex;
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
 
+
 void head() {
 	cin.ignore().get();
 	cout << "\t\t==============================================" << endl;
