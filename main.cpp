@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 struct Time {
@@ -15,7 +16,7 @@ struct Movie {
 	int duration;
 	Movie *next, *prev;
 	Time *headTime;
-	Time *tailTime;
+	Time *tailTime; 
 };
 
 struct Schedule {
@@ -67,6 +68,7 @@ int currentUserIndex;
 #include "addMovie.txt"
 #include "searchUsername.txt"
 #include "tampilkanHari.txt"
+#include "nampilinBioskop.txt"
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
 
@@ -79,13 +81,6 @@ void head() {
 }
 
 int main() {
-    string username;
-    cout << "Masukkan nama user: ";
-    getline(cin, username);
-    userName(username);
-    cout << "Selamat datang di FATIXID!" << endl;
-    tampilkanHari();
-   cout << "Nama user: " << user[currentUserIndex].username << endl;
 	// head();
 	// cout << "\t\t1. Bioskop";
 	// cout << "\t\t2. Cari movie berdasarkan genre" << endl;
