@@ -66,10 +66,23 @@ int currentUserIndex;
 //! Taro file di sini
 #include "addMovie.txt"
 #include "searchUsername.txt"
-#include "tampilkanHari.txt"
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
-
+void tampilkanHari() {
+    cout << "List Hari:" << endl;
+    for (int i = 0; i < 7; i++) {
+        cout << i + 1 << ". " << bioskop[0].schedule[i].day << endl;
+    }
+    int pilihan;
+    cout << "Masukkan nomor hari (1-7): ";
+    while (!(cin >> pilihan) || pilihan < 1 || pilihan > 7) {
+        cout << "Input tidak valid. Silakan masukkan angka antara 1 dan 7: ";
+        cin.clear();
+        cin.ignore(10000, '\n');
+    }
+    currentDayIndex = pilihan - 1;
+    cout << "Hari yang dipilih: " << bioskop[0].schedule[currentDayIndex].day << endl;
+}
 
 void head() {
 	cin.ignore().get();
@@ -79,13 +92,15 @@ void head() {
 }
 
 int main() {
+
     string username;
     cout << "Masukkan nama user: ";
     getline(cin, username);
     userName(username);
     cout << "Selamat datang di FATIXID!" << endl;
     tampilkanHari();
-   cout << "Nama user: " << user[currentUserIndex].username << endl;
+   
+	cout << "Nama user: " << user[currentUserIndex].username << endl;
 	// head();
 	// cout << "\t\t1. Bioskop";
 	// cout << "\t\t2. Cari movie berdasarkan genre" << endl;
