@@ -1,6 +1,22 @@
-void nampilinBioskop() {
-	cout << "Daftar Bioskop: \n";
-    cout << "1. FESTIVE WALK CGV\n";
-    cout << "2. TECHONMART CGV\n";
-    cout << "3. Tj XXI\n";
+void nampilinBioskop(int &currentBioskopIndex) {
+    string bioskopList[] = {"FESTIVE WALK CGV", "TECHONMART CGV", "MAL KARAWANG XXI"};
+    int jumlahBioskop = sizeof(bioskopList) / sizeof(bioskopList[currentBioskopIndex]);
+
+    cout << "Daftar Bioskop:\n";
+    for (int i = 0; i < jumlahBioskop; i++) {
+        cout << i + 1 << ". " << bioskopList[i] << endl;
+    }
+
+    int pilihan;
+    cout << "Pilih bioskop dengan memasukkan nomor: ";
+    cin >> pilihan;
+    pilihan--; 
+
+    if (pilihan >= 0 && pilihan < jumlahBioskop) {
+        currentBioskopIndex = pilihan;
+        cout << "Anda memilih: " << bioskopList[currentBioskopIndex] << endl;
+    } else {
+        cout << "Pilihan tidak valid!\n";
+        currentBioskopIndex = -1; 
+    }
 }

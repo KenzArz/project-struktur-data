@@ -16,7 +16,7 @@ struct Movie {
 	int duration;
 	Movie *next, *prev;
 	Time *headTime;
-	Time *tailTime;
+	Time *tailTime; 
 };
 
 struct Schedule {
@@ -70,6 +70,7 @@ int currentUserIndex;
 #include "nampilinBioskop.txt"
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
+
 void head() {
 	cin.ignore().get();
 	cout << "\t\t==============================================" << endl;
@@ -83,7 +84,8 @@ int main() {
     getline(cin >> ws, username);
 	userName(username);
 
-	nampilinBioskop();
+	int currentBioskopIndex;
+    nampilinBioskop(currentBioskopIndex);
 
 	cout << "Nama user: " << user[currentUserIndex].username << endl;
 	// head();
