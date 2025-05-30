@@ -1,0 +1,14 @@
+void cleanup() {
+    for(int bioskopIdx = 0; bioskopIdx < 3; bioskopIdx++) {
+        for(int day = 0; day < 7; day++) {
+            Movie* currentMovie = bioskop[bioskopIdx].headMovie;
+            while(currentMovie != NULL) {
+                Movie* nextMovie = currentMovie->next;
+                delete currentMovie;
+                currentMovie = nextMovie;
+            }
+            bioskop[bioskopIdx].headMovie = NULL;
+            bioskop[bioskopIdx].tailMovie = NULL;
+        }
+    }
+}

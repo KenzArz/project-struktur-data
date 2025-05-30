@@ -1,0 +1,42 @@
+Movie* listMovie() {
+    Movie *temp = bioskop[currentBioskopIndex].headMovie;
+
+	cout << "\t\tList Movie: " << endl;
+	int  j = 1;
+	for (int i = 0; i < 7; i++) {
+		while (temp  != NULL) {
+			if(currentDayIndex == temp->dayIndex[i]) {
+				cout << "\t\t" << j++ << ". Movie: " << temp->movieTitle << endl;
+			}
+			temp = temp->next;
+		}
+		temp = bioskop[currentBioskopIndex].headMovie;
+	}
+
+	if(j == 1) {
+		cout << "\t\t=============================================================" << endl;
+		cout << "\t\tTidak ada ticket movie yang presale";
+		return NULL;
+	}
+
+	cout << "\t\t=============================================================" << endl;
+	cout << "\t\tPilih movie yang ingin ditonton: ";
+	int choice;
+	cin >> choice;
+	--choice;
+
+	j = 0;
+	for (int i = 0; i < 7; i++) {
+		while (temp  != NULL) {
+			if(currentDayIndex == temp->dayIndex[i]) {
+				if(j == choice ) {
+					return temp;
+				}
+				j++;
+			}
+			temp = temp->next;
+		}
+		temp = bioskop[currentBioskopIndex].headMovie;
+	}
+	return NULL;
+}

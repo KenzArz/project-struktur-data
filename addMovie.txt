@@ -1,54 +1,269 @@
-void addMovie(int bioskopIndex, string movieTitle, string genre[], string sutradara, string ratingUsia,  int day, int size, int duration) {
+void addMovie(int bioskopIndex, string movieTitle, string genre[], string sutradara, string ratingUsia,  int day[], int sizeGenre, int sizeDay, int duration) {
 	Movie *newMovie = new Movie();
 	newMovie->movieTitle = movieTitle;
 	newMovie->sutradara = sutradara;
 	newMovie->ratingUsia = ratingUsia;
 	newMovie->duration = duration;
-	newMovie->headTime = NULL;
-	newMovie->tailTime = NULL;
 	newMovie->next = NULL;
-	newMovie->prev = NULL;
+	
+	for (int j = 0; j < sizeGenre; j++) {		
+		newMovie->genre[j] = genre[j];
+	}
 
-	for(int i = 0; i < size; i ++) {
-		newMovie->genre[i] = genre[i];
+	for (int i = 0; i < sizeDay; i++) {
+		newMovie->dayIndex[i] = day[i];
+	}
+
+	if(bioskop[bioskopIndex].headMovie == NULL) {
+		bioskop[bioskopIndex].headMovie = newMovie;
+		bioskop[bioskopIndex].tailMovie = bioskop[bioskopIndex].headMovie;
 	}
 	
-	if(bioskop[bioskopIndex].schedule[day].headMovie == NULL) {
-		bioskop[bioskopIndex].schedule[day].headMovie = newMovie;
-		bioskop[bioskopIndex].schedule[day].tailMovie = bioskop[bioskopIndex].schedule[day].headMovie;
-	}
 	else {
-		newMovie->prev = bioskop[bioskopIndex].schedule[day].tailMovie;
-		bioskop[bioskopIndex].schedule[day].tailMovie->next = newMovie;
-		bioskop[bioskopIndex].schedule[day].tailMovie = newMovie;
+		bioskop[bioskopIndex].tailMovie->next = newMovie;
+		bioskop[bioskopIndex].tailMovie = newMovie;
 	}
 }
 
 void addTime(int bioskopIndex, string movieTitle, int day, int totalShow, int startTime) {
 
-	Movie *lastMovie = bioskop[bioskopIndex].schedule[day].headMovie;
-	while (lastMovie->movieTitle != movieTitle) {
-		lastMovie = lastMovie->next;
+	Movie *movie = bioskop[bioskopIndex].headMovie;
+	while (movie != NULL && movie->movieTitle != movieTitle) {
+		movie = movie->next;
 	}
+
+	if(movie == nullptr) {
+        cerr << "Error: Film " << movieTitle << " tidak ditemukan!" << endl;
+        return;
+    }
 	
-	Time *start = NULL;
-	Time *end = NULL;
 	int currentTime = startTime;
-
 	for (int i = 0; i < totalShow; i++) {
-		Time *newTime = new Time();
-		newTime->next = NULL;
-		newTime->showTimes = currentTime;
+		movie->time[i].showTimes = currentTime;
+		currentTime += movie->duration;
+	}
+}
 
-		if(start == NULL) {
-			start = newTime;
-			end = start;
-		} else {
-			end->next = newTime;
-			end = newTime;
-		}
-		currentTime += lastMovie->duration;
+void generateMovie() {
+	int sizeGenre = 0;
+	int sizeDay = 0;
+
+	//?Festive Walk CGV
+string genre1[3] = {"Action", "Adventure", "Thriller"};
+	int dayIndex1[3] = {0, 1, 4}; // senin, selasa, jumat
+	int totalShow1[3] = {4, 2, 3};
+	sizeGenre = 3;
+	sizeDay = 3;
+	
+	addMovie(0, "Mission: Impossible - The Final Reckoning", genre1, "Christopher McQuarrie", "R13+", dayIndex1, sizeGenre, sizeDay, (2 * 60) + 49);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(0, "Mission: Impossible - The Final Reckoning", dayIndex1[i], totalShow1[i], (10 * 60) + 45);
+
+	}
+
+string genre2[1] = {"Horror"};
+	int dayIndex2[3] = {0, 1, 3}; //senin, selasa, kamis
+	int totalShow2[3] = {5, 3, 1};
+	sizeGenre = 1;
+
+	addMovie(0, "Final Destination: Bloodlines", genre2, "Zach LipovskyAdam · B. Stein", "D17+", dayIndex2, sizeGenre, sizeDay, (1 * 60) + 50);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(0, "Final Destination: Bloodlines", dayIndex2[i], totalShow2[i], (10 * 60) + 30);
+	}
+
+string genre3[3] = {"Action", "Comedy", "Fantasy"};
+	int dayIndex3[3] = {0, 1, 4}; //senin, selasa, jumat
+	int totalShow3[3] = {4, 4, 2};
+	sizeGenre = 3;
+	
+	addMovie(0, "A Minecraft Movie", genre3, "Jared Hess", "R13+", dayIndex3, sizeGenre, sizeDay, (1 * 60) + 41);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(0, "A Minecraft Movie", dayIndex3[i], totalShow3[i],  (10 * 60));
+	}
+
+string genre4[2] = {"Action", "Fantasy"};
+	int dayIndex4[1] = {0}; //senin
+	int totalShow4 = 4;
+	sizeGenre = 1;
+	sizeDay = 1;
+	
+	addMovie(0, "Thunderbolts*", genre4, "Jake Schreier", "R13+", dayIndex4, sizeGenre, sizeDay, (2 * 60) + 47);
+	addTime(0, "Thunderbolts*", dayIndex4[0], totalShow4,  (10 * 60));
+
+string genre5[1] = {"Animation"};
+	int dayIndex5[3] = {0, 2, 3}; // senin, rabu, kamis
+	int totalShow5[3] = {4, 2, 3};
+	sizeGenre = 1;
+	sizeDay = 3;
+
+	addMovie(0, "Jumbo", genre5, "Ryan Adriandhy", "SU", dayIndex5, sizeGenre, sizeDay, (1 * 60) + 42);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(0, "Jumbo", dayIndex5[i], totalShow5[i], (12 * 60) + 30);
+	}
+
+string genre6[3] = {"Action", "Comedy", "Fantasy"};
+	int dayIndex6[2] = {0, 2}; //senin, rabu
+	int totalShow6[2] = {3, 2};
+	sizeGenre = 3;
+	sizeDay = 2;
+	
+	addMovie(0, "Lilo & Stitch", genre6, "Dean Fleischer Camp", "SU", dayIndex6, sizeGenre, sizeDay, (1 * 60) + 48);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(0, "Lilo & Stitch",  dayIndex6[i], totalShow6[i], (15 * 60) + 45);
+	}
+
+string genre7[2] = {"Action", "Thriller"};
+	int dayIndex7[2] = {0, 6}; //senin, minggu
+	int totalShow7[2] = {3, 2};
+	sizeGenre = 2;
+	sizeDay = 2;
+
+	addMovie(0, "The Last of Us", genre7, "Neil Druckmann · Craig Mazin", "R13+", dayIndex7, sizeGenre, sizeDay, 50);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(0, "The Last of Us", dayIndex7[i], totalShow7[i], (11 * 60));
+	}
+
+string genre8[2] = {"Animation", "Family"};
+	int dayIndex8[2] = {0, 6}; //senin, minggu
+	int totalShow8[2] = {3, 2};
+	sizeGenre = 2;
+	sizeDay = 2;
+	
+	addMovie(0, "Inside Out 2", genre8, "Kelsey Mann", "SU", dayIndex8, sizeGenre, sizeDay, (1 * 60) + 40);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(0, "Inside Out 2", dayIndex8[i], totalShow8[i], (10 * 60) + 30);
+	}
+
+
+	//?TECHONMART CGV
+string genre9[3] = {"Action", "Adventure", "Thriller"};
+	int dayIndex9[3] = {0, 1, 2}; // senin, selasa, rabu
+	int totalShow9[3] = {2, 3, 2};
+	sizeGenre = 3;
+	sizeDay = 3;
+	
+	addMovie(1, "Mission: Impossible - The Final Reckoning", genre9, "Christopher McQuarrie", "R13+", dayIndex9, sizeGenre, sizeDay, (2 * 60) + 49);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(1, "Mission: Impossible - The Final Reckoning", dayIndex9[i], totalShow9[i], (13 * 60) + 45);
+	}
+
+string genre10[1] = {"Horror"};
+	int dayIndex10[3] = {1, 2, 3}; //selasa rabu, kamis
+	int totalShow10[3] = {3, 3, 2};
+	sizeGenre = 1;
+
+	addMovie(1, "Final Destination: Bloodlines", genre10, "Zach LipovskyAdam · B. Stein", "D17+", dayIndex10, sizeGenre, sizeDay, (1 * 60) + 50);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(1, "Final Destination: Bloodlines", dayIndex10[i], totalShow10[i], (10 * 60) + 45);
+	}
+
+string genre11[3] = {"Action", "Comedy", "Fantasy"};
+	int dayIndex11[3] = {2, 3, 4}; //rabu kamis jumat
+	int totalShow11[3] = {3, 4, 3};
+	sizeGenre = 3;
+	
+	addMovie(1, "A Minecraft Movie", genre11, "Jared Hess", "R13+", dayIndex11, sizeGenre, sizeDay, (1 * 60) + 41);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(1, "A Minecraft Movie", dayIndex11[i], totalShow11[i],  (10 * 60));
+	}
+
+string genre12[3] = {"Action", "Adventure", "Fantasy"};
+	int dayIndex12[4] = {3, 4, 5, 6}; //kamis jumat sabtu minggu
+	int totalShow12[4] = {3, 4, 3, 2};
+	sizeGenre = 3;
+	sizeDay = 4;
+
+	addMovie(1, "Avengers: Endgame", genre12, "Anthony & Joe Russo", "R13+", dayIndex12, sizeGenre, sizeDay, (3 * 60) + 1);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(1, "Avengers: Endgame", dayIndex12[i], totalShow12[i], (10 * 60) + 15);
+	}
+
+string genre13[1] = {"Animation"};
+	int dayIndex13[2] = {0, 1};// senin selasa
+	int totalShow13[2] = {4, 4};
+	sizeGenre = 1;
+	sizeDay = 2;
+
+	addMovie(1, "Kung Fu Panda 4", genre13, "Mike Mitchell", "SU", dayIndex13, sizeGenre, sizeDay, (1 * 60) + 34);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(1, "Kung Fu Panda 4", dayIndex13[i], totalShow13[i], (13 * 60) + 45);
 	}
 	
-	lastMovie->headTime = start;
+string genre14[1] = {"Animation"};
+	int dayIndex14[5] = {1, 2, 3, 4, 5}; //selasa rabu kamis jumat sabtu 
+	int totalShow14[5] = {4, 4, 4, 3, 3};
+	sizeGenre = 1;
+	sizeDay = 5;
+
+	addMovie(1, "Jumbo", genre14, "Ryan Adriandhy", "SU", dayIndex14, sizeGenre, sizeDay, (1 * 60) + 42);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(1, "Jumbo", dayIndex14[i], totalShow14[i], (10 * 60));
+	}
+
+string genre15[3] = {"Action", "Comedy", "Fantasy"};
+	int dayIndex15[3] = {4, 5, 6}; //jumat sabtu minggu
+	int totalShow15[3] = {2, 2, 3};
+	sizeGenre = 3;
+	sizeDay = 3;
+	
+	addMovie(0, "Lilo & Stitch", genre15, "Dean Fleischer Camp", "SU", dayIndex15, sizeGenre, sizeDay, (1 * 60) + 48);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(0, "Lilo & Stitch",  dayIndex15[i], totalShow15[i], (16 * 60) + 45);
+	}
+
+	//? MAL KARAWANG XXI
+string genre16[3] = {"Action", "Comedy", "Fantasy"};
+	int dayIndex16[3] = {2, 3}; //kamis
+	int totalShow16[3] = {2, 2};
+	sizeGenre = 3;
+	sizeDay = 2;
+	
+	addMovie(2, "Lilo & Stitch", genre16, "Dean Fleischer Camp", "SU", dayIndex16, sizeGenre, sizeDay, (1 * 60) + 48);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(2, "Lilo & Stitch",  dayIndex16[i], totalShow16[i], (17 * 60) + 45);
+	}
+
+string genre17[1] = {"Animation"};
+	int dayIndex17[3] = {3, 4, 5}; //kamis jumat
+	int totalShow17[3] = {4, 3, 3};
+	sizeGenre = 1;
+	sizeDay = 3;
+
+	addMovie(2, "Jumbo", genre17, "Ryan Adriandhy", "SU", dayIndex17, sizeGenre, sizeDay, (1 * 60) + 42);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(2, "Jumbo", dayIndex17[i], totalShow17[i], (14 * 60));
+	}
+	
+string genre18[3] = {"Action", "Adventure", "Thriller"};
+	int dayIndex18[1] = {0}; //senin
+	int totalShow18[1] = {2};
+	sizeGenre = 3;
+	sizeDay = 1;
+	
+	addMovie(2, "Mission: Impossible - The Final Reckoning", genre18, "Christopher McQuarrie", "R13+", dayIndex18, sizeGenre, sizeDay, (2 * 60) + 418);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(2, "Mission: Impossible - The Final Reckoning", dayIndex18[i], totalShow18[i], (13 * 60) + 45);
+	}
+
+string genre19[1] = {"Horror"};
+	int dayIndex19[2] = {2, 3}; //rabu kamis
+	int totalShow19[2] = {3, 2};
+	sizeGenre = 1;
+	sizeDay = 2;
+
+	addMovie(2, "Final Destination: Bloodlines", genre19, "Zach LipovskyAdam · B. Stein", "D17+", dayIndex19, sizeGenre, sizeDay, (1 * 60) + 50);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(2, "Final Destination: Bloodlines", dayIndex19[i], totalShow19[i], (12 * 60) + 45);
+	}
+
+string genre20[3] = {"Action", "Comedy", "Fantasy"};
+	int dayIndex20[3] = {2, 3, 4}; //rabu kamis jumat
+	int totalShow20[3] = {3, 4, 3};
+	sizeGenre = 3;
+	sizeDay = 3;
+	
+	addMovie(2, "A Minecraft Movie", genre20, "Jared Hess", "R13+", dayIndex20, sizeGenre, sizeDay, (1 * 60) + 41);
+	for (int i = 0; i < sizeDay; i++) {
+		addTime(2, "A Minecraft Movie", dayIndex20[i], totalShow20[i],  (13 * 60) + 30);
+	}
 }
