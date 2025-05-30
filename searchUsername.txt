@@ -1,4 +1,7 @@
-void userName(string username) {
+void userName() {
+	cout << "\t\t\t\t    Masukkan Nama Anda\n\t\t\t\t\t  ";
+	string username;
+	getline(cin >> ws, username);
 	for (int i = 0; i < 6; i++) {
 		if(user[i].username == username) {
 			currentUserIndex = i;
