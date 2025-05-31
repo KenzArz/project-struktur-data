@@ -1,0 +1,18 @@
+void tampilkanDetailFilm() {
+        
+            // Tampilkan detail
+            cout << "\n=== DETAIL FILM ===\n";
+            cout << "Judul     : " << currentMovie->movieTitle << endl;
+            cout << "Sutradara : " << currentMovie->sutradara << endl;
+            cout << "Rating    : " << currentMovie->ratingUsia << endl;
+            cout << "Durasi    : " << currentMovie->duration/60 << " jam " << currentMovie->duration%60 << " menit\n";
+            cout << "Genre     : ";
+            for (int i = 0; i < 3; i++) {
+                if (!currentMovie->genre[i].empty()) {
+                    cout << currentMovie->genre[i];
+                    if (i < 2 && !currentMovie->genre[i+1].empty()) cout << ", ";
+                }
+            }
+            cout << "\n===================\n";
+            return;
+}

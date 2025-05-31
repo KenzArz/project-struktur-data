@@ -16,7 +16,7 @@ struct Movie {
 	int duration;
 	int dayIndex[7] = {-1, -1, -1, -1, -1, -1, -1};
 	Movie *next;
-	Time time[10];
+	Time time[10] = {{-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}};
 };
 
 struct Schedule {
@@ -70,12 +70,15 @@ int currentUserIndex = -1;
 #include "nampilinBioskop.txt"
 #include "displayMovie.txt"
 #include "cleanup.txt"
+#include "detailMovie.txt"
+#include "jamTayang.txt"
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
 
 
+
 void head() {
-	system("clear");
+	system("cls");
 	cout << "\t\t=============================================================" << endl;
 	cout << "\t\t                 	  FATIXID" << endl;
 	cout << "\t\t=============================================================" << endl;
@@ -109,7 +112,9 @@ int main() {
 			tampilkanHari();
 			head();
 			currentMovie = listMovie();
-
+			tampilkanDetailFilm ();
+			tampilkanJamTayang ();
+			system("pause");
 			break;
 		case 2:
 			//CEK TIKET
