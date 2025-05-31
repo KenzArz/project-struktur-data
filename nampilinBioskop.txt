@@ -7,7 +7,7 @@ void nampilinBioskop(int &currentBioskopIndex) {
     }
 
     int pilihan;
-    cout << "\t\t=============================================================" << endl;
+    cout << "\t\t==============================================================================" << endl;
     cout << "\t\tPilih bioskop dengan memasukkan nomor: ";
     cin >> pilihan;
 

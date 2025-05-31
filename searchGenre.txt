@@ -1,0 +1,67 @@
+Movie* searchGenre() {
+	cout << "\t\t\t\t\tMasukkan Genre yang ingin dicari\n\t\t\t\t\t\t   ";
+	string genre;
+	getline(cin >> ws, genre);
+
+	head();
+	cout << "\t\t" << left << setw(36) << "Bioskop" << setw(38) << "Movie" << "Hari" << endl;
+
+	int widthBioskop = 18;
+	int widthMovie = 41;
+	int widthHari = 16;
+
+	int size = 0;
+	for (int i = 0; i < 3; i++) {
+		Movie *temp = bioskop[i].headMovie;
+		while (temp  != NULL) {
+			bool hasGenre = false;
+			for (int k = 0; k < 3; k++) {
+				if(genre == temp->genre[k]) {
+					hasGenre = true;
+					break;
+				}
+			}
+			if(hasGenre) {
+				for (int j = 0; j < 7; j++){
+					if(temp->dayIndex[j].day != -1) {
+						sorted[size].bioskopIndex = i;
+						sorted[size].movie = temp;
+						sorted[size].day = temp->dayIndex[j].day;
+						size++;
+					}
+				}
+			}
+			temp = temp->next;
+		}
+	}
+
+	selectionSort(size);
+	cout << size << endl;
+	for (int i = 0; i <= size; i++) {
+		if((i % 5 == 0 && i != 0) || i >= size) {
+			cout << "\t\t==============================================================================" << endl;
+			cout << "\t\tTips: ketik 88 untuk lanjut dan 99 untuk mundur" << endl;
+			cout << "\t\tMasukkan pilihan anda : ";
+			int choice;
+			cin >> choice;
+
+			if(choice == 99 && i != 0) {
+				i = i - 10;
+			} 
+			else if(choice != 88 && i <= size)  {
+				currentDayIndex = sorted[choice - 1].day;
+				currentBioskopIndex = sorted[choice - 1].bioskopIndex;
+				return sorted[choice - 1].movie;
+			}
+			head();
+		}
+		cout << "\t\t" << i + 1 << ". " << left << setw(widthBioskop) << bioskop[sorted[i].bioskopIndex].bioskop;
+		int padding = widthMovie - sorted[i].movie->movieTitle.length();
+		int leftPad = padding / 2;
+		int rightPad = padding - leftPad;
+
+		cout << string(leftPad, ' ') << sorted[i].movie->movieTitle << string(rightPad, ' ');
+		cout << right << setw(widthHari) << schedule[sorted[i].day] << endl;
+	}
+	return NULL;
+}

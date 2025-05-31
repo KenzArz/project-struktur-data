@@ -1,11 +1,17 @@
 #include <iostream>
 #include <string>
+#include <iomanip> 
+
 using namespace std;
 
 struct Time {
-	int showTimes;
-	bool seats[3][15];
-	Time *next;
+	int showTimes; //! jam tayang
+	bool seats[3][15]; //!3 baris 15 kolom
+};
+
+struct Schedule {
+	int day;
+	Time time[10] = {{-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}};
 };
 
 struct Movie {
@@ -14,43 +20,47 @@ struct Movie {
 	string sutradara;
 	string ratingUsia;
 	int duration;
-	int dayIndex[7] = {-1, -1, -1, -1, -1, -1, -1};
+	Schedule dayIndex[7] = {{-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}};
 	Movie *next;
-	Time time[10] = {{-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}};
-};
-
-struct Schedule {
-	string day;
 };
 
 struct Bioskop {
 	string bioskop;
 	Movie *headMovie = NULL;
 	Movie *tailMovie = NULL;
-	string schedule[7] = {"Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"};
 };
 
 struct Ticket {
-	string ticketId;
-	string bioskop;
-	string movieTitle;
-	string seatNumber;
-	int day;
-	int showTime;
+	string ticketId; //!Ticket id
+	string bioskop; //!Nama bioskop
+	string movieTitle; //!Judul Movie
+	string seatNumber; //!Nomer kursi (A2)
+	int day; //! Hari ticket tujuan
+	int showTime; // !jam tayangnya
 };
 
+//!User bisa punya tiket lebih dari 1 make linked list
 struct User {
 	string username;
 	Ticket *headTicket;
 	Ticket *tailTicket;
 };
 
+struct Moviesorted {
+	int day;
+	int bioskopIndex;
+	Movie *movie;
+};
+
+string schedule[7] = {"Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"};
 User user[6] = {{"Adelyn"}, {"Aldi"}, {"Bajang"}, {"Devika"}, {"Ibnu"}, {"Mediana"}};
 Bioskop bioskop[3] = {{ "FESTIVE WALK CGV" },{ "TECHONMART CGV" }, { "MAL KARAWANG XXI"	}};
+Moviesorted sorted[50];
 Movie* currentMovie;
-int currentBioskopIndex = -1;
-int currentDayIndex = -1;
-int currentUserIndex = -1;
+int currentBioskopIndex = -1; //!index bioskop saat ini
+int currentDayIndex = -1; //!index hari saat ini
+int currentUserIndex = -1; //!index user saat ini
+int currentShowTimeIndex = -1; //!index jam tayang saat ini
 
 //	TODO:
 //= 1. Menampilkan daftar bioskop -- Mediana
@@ -72,59 +82,65 @@ int currentUserIndex = -1;
 #include "cleanup.txt"
 #include "detailMovie.txt"
 #include "jamTayang.txt"
+#include "header.txt"
+#include "selectionSort.txt"
+#include "searchGenre.txt"
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
 
 
-
-void head() {
-	system("cls");
-	cout << "\t\t=============================================================" << endl;
-	cout << "\t\t                 	  FATIXID" << endl;
-	cout << "\t\t=============================================================" << endl;
-}
-
 int main() {
 	generateMovie();
+
 	int choice;
 	while (choice != 5) {
 		if(currentUserIndex == -1) {
 			head();
 			userName();
+			if(currentUserIndex == -1) continue;
 		}
 
 		head();
-		cout << "\t\t                 	 MENU UTAMA" << endl;
+		cout << "\t\t\t\t\t\t  MENU UTAMA" << endl;
 		cout << "\t\t1. Pilih Bioskop" << endl;
 		cout << "\t\t2. Cek Tiket" << endl;
 		cout << "\t\t3. Cari Movie berdasarkan genre" << endl;
 		cout << "\t\t4. Log Out" << endl;
 		cout << "\t\t5. Akhiri program" << endl;
-		cout << "\t\t=============================================================" << endl;
+		cout << "\t\t==============================================================================" << endl;
 		cout << "\t\tMasukkan pilihan anda: ";
 		cin >> choice;
 
-		head();
+	
+		int padding;
+		int leftPad;
+		int rightPad;
+		
 		switch (choice) {
 		case 1:
+			head();
 			nampilinBioskop(currentBioskopIndex);
 			head();
 			tampilkanHari();
 			head();
 			currentMovie = listMovie();
+			head();
 			tampilkanDetailFilm ();
 			tampilkanJamTayang ();
-			system("pause");
+
 			break;
 		case 2:
 			//CEK TIKET
 			break;
 		case 3:
-			// Cari Genre
+			head();
+			currentMovie = searchGenre();
+			head();
+			tampilkanDetailFilm ();
+			tampilkanJamTayang ();
 			break;
 		case 4:
 			currentUserIndex = -1;
-			//Log out
 			break;
 		default:
 			cout << "\t\t=============================================================" << endl;
@@ -133,6 +149,7 @@ int main() {
 		}
 	}
 	
+	cin.ignore().get();
 	cleanup();
 	return 0;
 }
