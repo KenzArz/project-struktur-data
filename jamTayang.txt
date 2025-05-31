@@ -1,0 +1,14 @@
+void tampilkanJamTayang() {
+
+            cout << "\nJAM TAYANG (" << currentMovie->movieTitle << "):\n";
+            for (int i = 0; i < 10; i++)
+            {
+                if (currentMovie->time[i].showTimes != -1) {
+                int jam = currentMovie->time[i].showTimes / 60;
+                int menit = currentMovie->time[i].showTimes % 60;
+                
+                printf("%02d:%02d\n", jam, menit);
+                }
+            }
+     return;
+}
