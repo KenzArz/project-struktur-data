@@ -1,0 +1,84 @@
+void bookingKursi() {
+    Time &currentTime = currentMovie->dayIndex[currentDayIndex].time[currentShowTimeIndex];
+    char baris, ulang;
+    int kolom;
+	int jam = currentTime.showTimes / 60;
+	int menit = currentTime.showTimes % 60;
+
+	do {
+		head();
+		cout << "\t\t\t\t\t     --- Layout Kursi ---" << endl;
+		for (int i = 0; i < 3; i++) {
+			cout << "\t\t\t\t" << char('A' + i) << " ";
+			for (int j = 0; j < 15; j++) {
+				cout << (currentTime.seats[i][j] ? "[X]" : "[ ]");
+			}
+			cout << endl;
+		}
+
+        // Input kursi
+        cout << "\n\t\tMasukkan baris kursi (A - C): ";
+        char rowChar;
+        cin >> rowChar;
+
+        cout << "\t\tMasukkan kolom kursi (1 - 15): ";
+        int col;
+        cin >> col;
+
+        // Validasi
+        if (rowChar < 'A' || rowChar > 'C' || col < 1 || col > 15) {
+            cout << "\n\t\tInput tidak valid. Baris harus A - C dan kolom 1 - 15.\n";
+        } else if (currentTime.seats[rowChar - 'A'][col - 1]) {
+            cout << "\n\t\tKursi " << rowChar << col << " sudah dipesan. Silakan pilih kursi lain.\n";
+        } else {
+            // Tandai kursi sudah dipesan
+            currentTime.seats[rowChar - 'A'][col - 1] = true;
+
+            // Buat tiket baru
+            Ticket *newTicket = new Ticket;
+            ticketCount++;
+            newTicket->ticketId = "TKT" + to_string(ticketCount);
+            newTicket->bioskop = bioskop[currentBioskopIndex].bioskop;
+            newTicket->movieTitle = currentMovie->movieTitle;
+            newTicket->seatNumber = string(1, rowChar) + to_string(col);
+            newTicket->day = currentDayIndex;
+            newTicket->showTime = currentTime.showTimes;
+            newTicket->next = nullptr;
+
+            // Tambahkan ke user
+            if (user[currentUserIndex].headTicket == nullptr) {
+                user[currentUserIndex].headTicket = user[currentUserIndex].tailTicket = newTicket;
+            } else {
+                user[currentUserIndex].tailTicket->next = newTicket;
+                user[currentUserIndex].tailTicket = newTicket;
+            }
+
+            // Tampilkan tiket
+			head();
+            cout << "\n\t\tTiket berhasil dipesan!\n";
+            cout << "\t\tID Tiket   : " << newTicket->ticketId << endl;
+            cout << "\t\tBioskop    : " << newTicket->bioskop << endl;
+            cout << "\t\tFilm       : " << newTicket->movieTitle << endl;
+            cout << "\t\tKursi      : " << newTicket->seatNumber << endl;
+            cout << "\t\tHari       : " << schedule[currentDayIndex] << endl;
+            cout << "\t\tJam Tayang : " << setfill('0') << setw(2) << jam << ":" << setw(2) << menit << endl;
+
+            cout << "\n\t\tTekan Enter untuk kembali ke menu utama...";
+            cin.ignore();
+            cin.get();
+            break; // keluar dari do-while jika berhasil
+        }
+
+        // Kalau gagal, konfirmasi ulang
+        cout << "\n\t\tIngin mencoba lagi? (y/n): ";
+        cin >> ulang;
+        ulang = tolower(ulang);
+
+		if (ulang != 'y') {
+			cout << "\n\t\tPemesanan dibatalkan. Kembali ke menu utama...\n";
+			cin.ignore();
+			cin.get();
+		}
+
+    } while (ulang == 'y');
+}
