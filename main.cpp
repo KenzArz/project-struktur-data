@@ -62,6 +62,7 @@ int currentBioskopIndex = -1; //!index bioskop saat ini
 int currentDayIndex = -1; //!index hari saat ini
 int currentUserIndex = -1; //!index user saat ini
 int currentShowTimeIndex = -1; //!index jam tayang saat ini
+int ticketCount = 0;
 
 //	TODO:
 //= 1. Menampilkan daftar bioskop -- Mediana
@@ -86,42 +87,10 @@ int currentShowTimeIndex = -1; //!index jam tayang saat ini
 #include "header.txt"
 #include "selectionSort.txt"
 #include "searchGenre.txt"
+#include "bookingKursi.txt"
+#include "cekTiket.txt"
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
-void addTicket(User &user, string ticketId, string bioskop, string movieTitle, string seatNumber, int day, int showTime) {
-    Ticket* newTicket = new Ticket{ticketId, bioskop, movieTitle, seatNumber, day, showTime, nullptr};
-
-    if (user.headTicket == nullptr) {
-        user.headTicket = newTicket;
-    } else {
-        Ticket* temp = user.headTicket;
-        while (temp->next != nullptr) {
-            temp = temp->next;
-        }
-        temp->next = newTicket;
-    }
-
-    cout << "Tiket berhasil ditambahkan!\n";
-}
-void displayTickets(User &user) {
-    if (user.headTicket == nullptr) {
-        cout << "Anda belum membeli tiket apapun.\n";
-        return;
-    }
-
-    Ticket* current = user.headTicket;
-    cout << "=== Daftar Tiket ===\n";
-    while (current != nullptr) {
-        cout << "ID Tiket    : " << current->ticketId << endl;
-        cout << "Bioskop     : " << current->bioskop << endl;
-        cout << "Judul Film  : " << current->movieTitle << endl;
-        cout << "Nomor Kursi : " << current->seatNumber << endl;
-        cout << "Hari        : " << current->day << endl;
-        cout << "Jam Tayang  : " << current->showTime << ":00\n";
-        cout << "------------------------\n";
-        current = current->next;
-	}
-}
 
 int main() {
 	generateMovie();
@@ -161,11 +130,11 @@ int main() {
 			head();
 			tampilkanDetailFilm ();
 			tampilkanJamTayang ();
-
+			bookingKursi();
 			break;
 		case 2:
 		    head();
-			displayTickets(user[currentUserIndex]);
+			cekTiket();
 			break;
 		case 3:
 			head();
