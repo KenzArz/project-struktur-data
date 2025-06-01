@@ -37,6 +37,7 @@ struct Ticket {
 	string seatNumber; //!Nomer kursi (A2)
 	int day; //! Hari ticket tujuan
 	int showTime; // !jam tayangnya
+	Ticket*next;
 };
 
 //!User bisa punya tiket lebih dari 1 make linked list
@@ -87,7 +88,40 @@ int currentShowTimeIndex = -1; //!index jam tayang saat ini
 #include "searchGenre.txt"
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
+void addTicket(User &user, string ticketId, string bioskop, string movieTitle, string seatNumber, int day, int showTime) {
+    Ticket* newTicket = new Ticket{ticketId, bioskop, movieTitle, seatNumber, day, showTime, nullptr};
 
+    if (user.headTicket == nullptr) {
+        user.headTicket = newTicket;
+    } else {
+        Ticket* temp = user.headTicket;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newTicket;
+    }
+
+    cout << "Tiket berhasil ditambahkan!\n";
+}
+void displayTickets(User &user) {
+    if (user.headTicket == nullptr) {
+        cout << "Anda belum membeli tiket apapun.\n";
+        return;
+    }
+
+    Ticket* current = user.headTicket;
+    cout << "=== Daftar Tiket ===\n";
+    while (current != nullptr) {
+        cout << "ID Tiket    : " << current->ticketId << endl;
+        cout << "Bioskop     : " << current->bioskop << endl;
+        cout << "Judul Film  : " << current->movieTitle << endl;
+        cout << "Nomor Kursi : " << current->seatNumber << endl;
+        cout << "Hari        : " << current->day << endl;
+        cout << "Jam Tayang  : " << current->showTime << ":00\n";
+        cout << "------------------------\n";
+        current = current->next;
+	}
+}
 
 int main() {
 	generateMovie();
@@ -130,7 +164,8 @@ int main() {
 
 			break;
 		case 2:
-			//CEK TIKET
+		    head();
+			displayTickets(user[currentUserIndex]);
 			break;
 		case 3:
 			head();
