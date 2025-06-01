@@ -1,0 +1,35 @@
+void cekTiket() {
+
+	head();
+
+    Ticket *temp = user[currentUserIndex].headTicket;
+
+    if (temp == nullptr) {
+        cout << "\t\tKamu belum membeli tiket apapun." << endl;
+        cout << "\n\t\tTekan Enter untuk kembali ke menu utama...";
+        cin.ignore();
+        cin.get();
+        return;
+    }
+
+    cout << "\t\t\t\t\t===== Daftar Tiket " << user[currentUserIndex].username << " =====" << endl;
+    int no = 1;
+    while (temp != nullptr) {
+        int jam = temp->showTime / 60;
+        int menit = temp->showTime % 60;
+
+        cout << "\t\tTiket #" << no++ << endl;
+        cout << "\t\tID Tiket     : " << temp->ticketId << endl;
+        cout << "\t\tFilm         : " << temp->movieTitle << endl;
+        cout << "\t\tBioskop      : " << temp->bioskop << endl;
+        cout << "\t\tHari         : " << schedule[temp->day] << endl;
+        cout << "\t\tJam Tayang   : " << setfill('0') << setw(2) << jam << ":" << setw(2) << menit << endl;
+        cout << "\t\tKursi        : " << temp->seatNumber << endl;
+        cout << "\t\t-----------------------------" << endl;
+        temp = temp->next;
+    }
+
+	cout << "\n\t\tTekan Enter untuk kembali ke menu utama...";
+	cin.ignore(); // buang newline sisa input
+	cin.get();    // tunggu enter
+}
