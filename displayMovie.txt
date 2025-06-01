@@ -1,6 +1,7 @@
 Movie* listMovie() {
+	head();
+	
     Movie *temp = bioskop[currentBioskopIndex].headMovie;
-
 	cout << "\t\tList Movie: " << endl;
 	int  j = 1;
 	while (temp  != NULL) {
@@ -15,7 +16,8 @@ Movie* listMovie() {
 
 	if(j == 1) {
 		cout << "\t\t==============================================================================" << endl;
-		cout << "\t\tTidak ada ticket movie yang presale";
+		cout << "\t\tTidak ada ticket movie yang presale, ketik enter untuk kembali ke menu";
+		cin.ignore().get();
 		return NULL;
 	}
 
@@ -37,5 +39,8 @@ Movie* listMovie() {
 		}
 		temp = temp->next;
 	}
-	return NULL;
+
+	cout << "\t\tMovie yang anda pilih tidak tersedia, ketik enter untuk memilih lagi";
+	cin.ignore().get();
+	return listMovie();
 }
