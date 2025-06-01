@@ -37,6 +37,7 @@ struct Ticket {
 	string seatNumber; //!Nomer kursi (A2)
 	int day; //! Hari ticket tujuan
 	int showTime; // !jam tayangnya
+	Ticket *next; //!Pointer ke tiket berikutnya
 };
 
 //!User bisa punya tiket lebih dari 1 make linked list
@@ -61,6 +62,7 @@ int currentBioskopIndex = -1; //!index bioskop saat ini
 int currentDayIndex = -1; //!index hari saat ini
 int currentUserIndex = -1; //!index user saat ini
 int currentShowTimeIndex = -1; //!index jam tayang saat ini
+int ticketCount = 0;
 
 //	TODO:
 //= 1. Menampilkan daftar bioskop -- Mediana
@@ -85,6 +87,8 @@ int currentShowTimeIndex = -1; //!index jam tayang saat ini
 #include "header.txt"
 #include "selectionSort.txt"
 #include "searchGenre.txt"
+#include "bookingKursi.txt"
+#include "cekTiket.txt"
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
 
@@ -127,10 +131,10 @@ int main() {
 			head();
 			tampilkanDetailFilm ();
 			tampilkanJamTayang ();
-
+			bookingKursi();
 			break;
 		case 2:
-			//CEK TIKET
+			// MENAMPILKAN TIKET DARI USER
 			break;
 		case 3:
 			head();
