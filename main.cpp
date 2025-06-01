@@ -134,7 +134,7 @@ int main() {
 			bookingKursi();
 			break;
 		case 2:
-			cekTiket();
+			// MENAMPILKAN TIKET DARI USER
 			break;
 		case 3:
 			head();
