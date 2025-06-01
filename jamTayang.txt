@@ -1,5 +1,6 @@
 void tampilkanJamTayang() {
 
+    int totalShowTime = 1;
     cout << "\t\t\t\t\t\tJAM TAYANG\n\t";
     for (int i = 0; i < 10; i++) {
         if (currentMovie->dayIndex[currentDayIndex].time[i].showTimes != -1) {
@@ -7,6 +8,7 @@ void tampilkanJamTayang() {
             int menit = currentMovie->dayIndex[currentDayIndex].time[i].showTimes % 60;
             
             cout << "\t" << i + 1 << ". " << jam << ":" << (menit < 10 ? "0" : "") << menit;
+            totalShowTime++;
         }
     }
     cout << endl << "\t\t==============================================================================" << endl;
@@ -15,5 +17,13 @@ void tampilkanJamTayang() {
     cin >> choice;
 
     currentShowTimeIndex = choice - 1;
+    if(choice >= totalShowTime) {
+        cout << "\t\tJam tayang yang anda pilih tidak tersedia, Ketik enter untuk pilih ulang" << endl;
+        cin.ignore().get();
+        head();
+        tampilkanDetailFilm();
+        tampilkanJamTayang();
+        return;
+    }
     return;
 }

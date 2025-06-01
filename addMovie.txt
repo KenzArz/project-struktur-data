@@ -240,7 +240,7 @@ string genre18[3] = {"Action", "Adventure", "Thriller"};
 	sizeGenre = 3;
 	sizeDay = 1;
 	
-	addMovie(2, "Mission: Impossible - The Final Reckoning", genre18, "Christopher McQuarrie", "R13+", dayIndex18, sizeGenre, sizeDay, (2 * 60) + 418);
+	addMovie(2, "Mission: Impossible - The Final Reckoning", genre18, "Christopher McQuarrie", "R13+", dayIndex18, sizeGenre, sizeDay, (2 * 60) + 41);
 	for (int i = 0; i < sizeDay; i++) {
 		addTime(2, "Mission: Impossible - The Final Reckoning", dayIndex18[i], totalShow18[i], (13 * 60) + 45);
 	}

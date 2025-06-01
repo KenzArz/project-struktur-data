@@ -76,6 +76,7 @@ int ticketCount = 0;
 //= 9. Cari film berdasarkan genre --Aldi
 
 //! Taro file di sini
+#include "header.txt"
 #include "addMovie.txt"
 #include "searchUsername.txt"
 #include "tampilkanHari.txt"
@@ -84,7 +85,6 @@ int ticketCount = 0;
 #include "cleanup.txt"
 #include "detailMovie.txt"
 #include "jamTayang.txt"
-#include "header.txt"
 #include "selectionSort.txt"
 #include "searchGenre.txt"
 #include "bookingKursi.txt"
@@ -135,6 +135,7 @@ int main() {
 			break;
 		case 2:
 			// MENAMPILKAN TIKET DARI USER
+			cekTiket();
 			break;
 		case 3:
 			head();
@@ -142,6 +143,7 @@ int main() {
 			head();
 			tampilkanDetailFilm ();
 			tampilkanJamTayang ();
+			bookingKursi();
 			break;
 		case 4:
 			currentUserIndex = -1;
