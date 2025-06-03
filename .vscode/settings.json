@@ -48,7 +48,7 @@
 		"stdexcept": "cpp",
 		"streambuf": "cpp",
 		"typeinfo": "cpp",
-		"*.txt": "cpp",
-		"iomanip": "cpp"
+		"iomanip": "cpp",
+		"*.txt": "cpp"
 	}
 }
