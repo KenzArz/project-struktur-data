@@ -135,7 +135,7 @@ int main() {
 			head();
 			currentMovie = searchGenre();
 			if(currentMovie == NULL) continue;
-			
+
 			head();
 			tampilkanDetailFilm ();
 			tampilkanJamTayang ();
@@ -144,8 +144,21 @@ int main() {
 		case 4:
 			currentUserIndex = -1;
 			break;
+		case 5:
+			cout << "\t\t==============================================================================" << endl;
+			cout << R"(
+		_  __         _                                       _        _  _   
+		| |/ /   ___  | |   ___    _ __ ___    _ __     ___   | | __   | || |  
+		| ' /   / _ \ | |  / _ \  | '_ ` _ \  | '_ \   / _ \  | |/ /   | || |_ 
+		| . \  |  __/ | | | (_) | | | | | | | | |_) | | (_) | |   <    |__   _|
+		|_|\_\  \___| |_|  \___/  |_| |_| |_| | .__/   \___/  |_|\_\      |_|  
+                                                      |_|                              
+		)" << endl;
+		cout << "\t\t==============================================================================" << endl;
+		cout << "\t\tTERIMA KASIH SUDAH MENGGUNAKAN LAYANAN FATIXID" << endl;
+		break;
 		default:
-			cout << "\t\t=============================================================" << endl;
+			cout << "\t\t==============================================================================" << endl;
 			cout << "\t\tMenu yang anda pilih tidak tersedia" << endl;
 			break;
 		}
