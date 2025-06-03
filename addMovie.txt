@@ -63,7 +63,7 @@ string genre1[3] = {"Action", "Adventure", "Thriller"};
 
 string genre2[1] = {"Horror"};
 	int dayIndex2[3] = {0, 1, 3}; //senin, selasa, kamis
-	int totalShow2[3] = {6, 3, 1};
+	int totalShow2[3] = {5, 3, 1};
 	sizeGenre = 1;
 
 	addMovie(0, "Final Destination: Bloodlines", genre2, "Zach LipovskyAdam · B. Stein", "D17+", dayIndex2, sizeGenre, sizeDay, (1 * 60) + 50);
@@ -206,9 +206,9 @@ string genre15[3] = {"Action", "Comedy", "Fantasy"};
 	sizeGenre = 3;
 	sizeDay = 3;
 	
-	addMovie(0, "Lilo & Stitch", genre15, "Dean Fleischer Camp", "SU", dayIndex15, sizeGenre, sizeDay, (1 * 60) + 48);
+	addMovie(1, "Lilo & Stitch", genre15, "Dean Fleischer Camp", "SU", dayIndex15, sizeGenre, sizeDay, (1 * 60) + 48);
 	for (int i = 0; i < sizeDay; i++) {
-		addTime(0, "Lilo & Stitch",  dayIndex15[i], totalShow15[i], (16 * 60) + 45);
+		addTime(1, "Lilo & Stitch",  dayIndex15[i], totalShow15[i], (16 * 60) + 45);
 	}
 
 	//? MAL KARAWANG XXI

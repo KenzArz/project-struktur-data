@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <iomanip> 
+#include <iomanip> //!memperbagus output, ngasih lebar output
 
 using namespace std;
 
@@ -92,7 +92,6 @@ int ticketCount = 0;
 
 //! Bikin function percobaan di sini, habis tuh hapus pindahin ke file
 
-
 int main() {
 	generateMovie();
 
@@ -114,11 +113,6 @@ int main() {
 		cout << "\t\t==============================================================================" << endl;
 		cout << "\t\tMasukkan pilihan anda: ";
 		cin >> choice;
-
-	
-		int padding;
-		int leftPad;
-		int rightPad;
 		
 		switch (choice) {
 		case 1:
@@ -128,18 +122,20 @@ int main() {
 			tampilkanHari();
 			head();
 			currentMovie = listMovie();
+			if(currentMovie == NULL) continue;
 			head();
 			tampilkanDetailFilm ();
 			tampilkanJamTayang ();
 			bookingKursi();
 			break;
 		case 2:
-			// MENAMPILKAN TIKET DARI USER
 			cekTiket();
 			break;
 		case 3:
 			head();
 			currentMovie = searchGenre();
+			if(currentMovie == NULL) continue;
+			
 			head();
 			tampilkanDetailFilm ();
 			tampilkanJamTayang ();

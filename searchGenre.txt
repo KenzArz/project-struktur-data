@@ -52,10 +52,20 @@ Movie* searchGenre() {
 			int choice;
 			cin >> choice;
 
-			if(choice == 99 && i != 0) {
+			while ((choice == 99 && i == 5) ||choice == 88 && i == size) {
+				cout << "\t\tMasukkan pilihan anda : ";
+				cin >> choice;
+			}
+
+			if(choice == 99 && i != 5) {
 				i = i - 10;
-			} 
-			else if(choice != 88 && i <= size)  {
+			} else if(choice != 88 && i <= size)  {
+				if(choice > size) {
+					cout << "\t\tMovie yang anda pilih tidak tersedia, ketik enter untuk coba lagi";
+					cin.ignore().get();
+					head();
+					return searchGenre();
+				}
 				currentDayIndex = sorted[choice - 1].day;
 				currentBioskopIndex = sorted[choice - 1].bioskopIndex;
 				return sorted[choice - 1].movie;
