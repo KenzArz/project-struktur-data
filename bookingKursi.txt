@@ -1,5 +1,5 @@
 void bookingKursi() {
-    Time &currentTime = currentMovie->dayIndex[currentDayIndex].time[currentShowTimeIndex];
+    Time currentTime = currentMovie->dayIndex[currentDayIndex].time[currentShowTimeIndex];
     char baris, ulang;
     int kolom;
 	int jam = currentTime.showTimes / 60;
